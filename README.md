@@ -1,4 +1,4 @@
-# sqlalchemy-challenge 
+# Sqlalchemy-challenge 
 SQL Alchemy Challenge 10
 
 # Author:
