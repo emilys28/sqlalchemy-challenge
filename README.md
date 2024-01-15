@@ -38,7 +38,7 @@ activestationtemp.png
 5. Design a query that calculates the lowest, highest, and average temperatures that filters on the most-active station id found in the previous query.
 6. Design a query to get the previous 12 months of temperature observation (TOBS) data. To do so, complete the following steps:
  Image 2: Temperature Observation Data for Station USC00519281
-<img width="990" alt="Challenge 9 ERD" src="https://github.com/emilys28/sqlalchemy-challenge/blob/cec4627230305d9b4a67c9bc829d8aec74f67492/SurfsUp/activestationtemp.png">
+<img width="990" alt="Challenge 9 ERD" src="https://github.com/emilys28/sqlalchemy-challenge/blob/cf61bcfbc29dbcd845f462be82ed2b81ada40ffc/SurfsUp/activestationtemp.png">
 
 8. Filter by the station that has the greatest number of observations.
 9. Query the previous 12 months of TOBS data for that station.
