@@ -39,6 +39,7 @@ activestationtemp.png
 6. Design a query to get the previous 12 months of temperature observation (TOBS) data. To do so, complete the following steps:
  Image 2: Temperature Observation Data for Station USC00519281
 <img width="990" alt="Challenge 9 ERD" src="https://github.com/emilys28/sqlalchemy-challenge/blob/cec4627230305d9b4a67c9bc829d8aec74f67492/SurfsUp/activestationtemp.png">
+
 8. Filter by the station that has the greatest number of observations.
 9. Query the previous 12 months of TOBS data for that station.
 10. Plot the results as a histogram with bins=12, as the following image shows:
