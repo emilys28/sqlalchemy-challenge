@@ -37,6 +37,10 @@ app = Flask(__name__)
 # Flask Routes
 #################################################
 
+# /
+# Start at the homepage.
+#List all the available routes.
+
 @app.route("/")
 def welcome():
     return (
@@ -49,11 +53,18 @@ def welcome():
         f"/api/v1.0/[start_date format:yyyy-mm-dd]/[end_date format:yyyy-mm-dd]<br/>"
     )
 
+# /api/v1.0/precipitation
+# Convert the query results from your precipitation analysis (i.e. retrieve only the last 12 months of data) 
+# to a dictionary using date as the key and prcp as the value.
+# Return the JSON representation of your dictionary.
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     precipt_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= "2016-08-24")
     precipitation_dict = {date: prcp for date, prcp in precipt_data}
     return jsonify(precipitation_dict)
+
+# /api/v1.0/stations
+# Return a JSON list of stations from the dataset.
 
 @app.route("/api/v1.0/stations")
 def stations():
@@ -61,20 +72,34 @@ def stations():
     stations_list = [station[0] for station in stations_list]
     return jsonify(stations_list)
 
+# /api/v1.0/tobs
+# Query the dates and temperature observations of the most-active station for the previous year of data.
+# Return a JSON list of temperature observations for the previous year.
+
 @app.route("/api/v1.0/tobs")
 def tobs():
-     active_station_tobs = session.query(Measurement.date,  Measurement.tobs,Measurement.prcp).\
+      tobs = session.query(Measurement.date,  Measurement.tobs,Measurement.prcp).\
                 filter(Measurement.date >= '2016-08-23').\
                 filter(Measurement.station=='USC00519281').\
                 order_by(Measurement.date).all()
-     tobs_list = [{"Date": date, "Temperature": tobs} for date, tobs in active_station_tobs]
-     return jsonify(tobs_list)
-
+      # Convert the list to Dictionary
+      all_tobs = []
+      for prcp, date,tobs in tobs:
+            tobs_dict = {}
+            tobs_dict["prcp"] = prcp
+            tobs_dict["date"] = date
+            tobs_dict["tobs"] = tobs
+            
+            all_tobs.append(tobs_dict)
+            return jsonify(all_tobs)
+      
+# /api/v1.0/<start> and /api/v1.0/<start>/<end>
+# Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or start-end range.
+# For a specified start, calculate TMIN, TAVG, and TMAX for all the dates greater than or equal to the start date.
+# For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the dates from the start date to the end date, inclusive.
 
 @app.route("/api/v1.0/<start>")
 def start_date_summary(start):
-    # Query to calculate TMIN, TAVG, and TMAX for all dates greater than or equal to the start date
-    # Modify this query according to your database structure
     temperature_summary = session.query(func.min(Measurement.tobs).label('min_temp'),
                                        func.avg(Measurement.tobs).label('avg_temp'),
                                        func.max(Measurement.tobs).label('max_temp'))\
