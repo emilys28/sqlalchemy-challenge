@@ -1,7 +1,7 @@
 # sqlalchemy-challenge 
 SQL Alchemy Challenge 10
 
-# author:
+# Author:
 Emily L Sims
 
 # Instructions
