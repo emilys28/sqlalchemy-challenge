@@ -22,6 +22,11 @@ In this section, you’ll use Python and SQLAlchemy to do a basic climate analys
 5. Sort the DataFrame values by "date".
 6. Plot the results by using the DataFrame plot method, as the following image shows:
 
+ Image 1: Precipitation Over the Last 12 Months
+<img width="990" alt="Challenge 9 ERD" src="https://github.com/emilys28/sqlalchemy-challenge/blob/cec4627230305d9b4a67c9bc829d8aec74f67492/SurfsUp/yearprecipitation.png">
+
+
+activestationtemp.png
 
 7. Use Pandas to print the summary statistics for the precipitation data.
 
@@ -32,11 +37,13 @@ In this section, you’ll use Python and SQLAlchemy to do a basic climate analys
 4. Answer the following question: which station id has the greatest number of observations?
 5. Design a query that calculates the lowest, highest, and average temperatures that filters on the most-active station id found in the previous query.
 6. Design a query to get the previous 12 months of temperature observation (TOBS) data. To do so, complete the following steps:
-7. Filter by the station that has the greatest number of observations.
-8. Query the previous 12 months of TOBS data for that station.
-9. Plot the results as a histogram with bins=12, as the following image shows:
+ Image 2: Temperature Observation Data for Station USC00519281
+<img width="990" alt="Challenge 9 ERD" src="https://github.com/emilys28/sqlalchemy-challenge/blob/cec4627230305d9b4a67c9bc829d8aec74f67492/SurfsUp/activestationtemp.png">
+8. Filter by the station that has the greatest number of observations.
+9. Query the previous 12 months of TOBS data for that station.
+10. Plot the results as a histogram with bins=12, as the following image shows:
 
-10. Close your session.
+11. Close your session.
 
 ## Part 2: Design Your Climate App
 Now that you’ve completed your initial analysis, you’ll design a Flask API based on the queries that you just developed. To do so, use Flask to create your routes as follows:
