@@ -59,7 +59,7 @@ def welcome():
 # Return the JSON representation of your dictionary.
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    precipt_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= "2016-08-24")
+    precipt_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= one_year_ago)
     precipitation_dict = {date: prcp for date, prcp in precipt_data}
     return jsonify(precipitation_dict)
 
@@ -79,8 +79,8 @@ def stations():
 @app.route("/api/v1.0/tobs")
 def tobs():
       tobs = session.query(Measurement.date,  Measurement.tobs,Measurement.prcp).\
-                filter(Measurement.date >= '2016-08-23').\
-                filter(Measurement.station=='USC00519281').\
+                filter(Measurement.date >= one_year_ago).\
+                filter(Measurement.station == most_active_station).\
                 order_by(Measurement.date).all()
       # Convert the list to Dictionary
       all_tobs = []
