@@ -44,7 +44,7 @@ app = Flask(__name__)
 @app.route("/")
 def welcome():
     return (
-        f"Welcome to the .. API!<br/>"
+        f"Welcome to the Weather API!<br/>"
         f"Available Routes:<br/>"
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
@@ -59,9 +59,15 @@ def welcome():
 # Return the JSON representation of your dictionary.
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    precipt_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= one_year_ago)
-    precipitation_dict = {date: prcp for date, prcp in precipt_data}
-    return jsonify(precipitation_dict)
+    # Define one_year_ago within the route
+    one_year_ago = most_recent_date - dt.timedelta(days=365)
+
+    precipt_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= one_year_ago).all()
+    
+    # Convert the query results to a list of dictionaries
+    precipitation_list = [{"date": date, "prcp": prcp} for date, prcp in precipt_data]
+
+    return jsonify(precipitation_list)
 
 # /api/v1.0/stations
 # Return a JSON list of stations from the dataset.
