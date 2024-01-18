@@ -59,6 +59,13 @@ def welcome():
 # Return the JSON representation of your dictionary.
 @app.route("/api/v1.0/precipitation")
 def precipitation():
+    # Find the most recent date in the data set.
+    most_recent_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+    # Extract the date string from the Row object
+    most_recent_date_str = most_recent_date[0]
+    # Convert the string to datetime format
+    most_recent_date = dt.datetime.strptime(most_recent_date_str, '%Y-%m-%d')
+
     # Define one_year_ago within the route
     one_year_ago = most_recent_date - dt.timedelta(days=365)
 
